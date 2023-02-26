@@ -1,11 +1,28 @@
-const { Telegraf } = require('telegraf');
-const { message } = require('telegraf/filters');
+import { Telegraf } from 'telegraf';
+import { message } from 'telegraf/filters';
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
-bot.start((ctx) => ctx.reply('Welcome'));
-bot.help((ctx) => ctx.reply('Send me a sticker'));
-bot.on(message('sticker'), (ctx) => ctx.reply('👍'));
-bot.hears('hi', (ctx) => ctx.reply('Hey there'));
+
+bot.command('start', async (ctx) => {
+    
+    // Using context shortcut
+    // Using context shortcut
+  await ctx.reply(`Hello ${ctx.state.role}`);
+  });
+
+bot.command('quit', async (ctx) => {
+
+  // Using context shortcut
+  await ctx.leaveChat();
+});
+
+bot.on(message('text'), async (ctx) => {
+
+  // Using context shortcut
+  await ctx.reply(`your message was ${ctx.message.text}`);
+});
+
+
 bot.launch();
 
 // Enable graceful stop
